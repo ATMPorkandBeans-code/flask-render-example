@@ -2,8 +2,16 @@ services:
   - type: web
     name: flask-render-example
     runtime: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python seed.py
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: flask-render-db
+          property: connectionString
+
+databases:
+  - name: flask-render-db
+    plan: free
