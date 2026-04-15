@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # Use DATABASE_URL env var in production (Render), SQLite locally
-database_url = os.environ.get("DATABASE_URL", "sqlite:///app.db")
+database_url = os.environ.get("DATABASE_URL") or "sqlite:///app.db"
 # SQLAlchemy requires postgresql:// instead of postgres://
 if database_url.startswith("postgres://"):
     database_url = database_url.replace("postgres://", "postgresql://", 1)
